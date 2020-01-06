@@ -1,0 +1,46 @@
+#************************************************************************
+#NOTICE: PLEASE READ CAREFULLY: ADVANTEST PROVIDES THIS SOFTWARE TO YOU
+#ONLY UPON YOUR ACCEPTANCE OF ADVANTEST'S TERMS OF USE. THE SOFTWARE IS
+#PROVIDED "AS IS" WITHOUT WARRANTY OF ANY KIND AND ADVANTEST'S LIABILITY
+#FOR SUCH SOFTWARE LIMITED TO THE FULLEST EXTENT PERMITTED UNDER THE LAW.
+#************************************************************************
+
+PRO			= pro_SPINOR.exe
+PAT			= pat_SPINOR.mpa
+LIBS                    = 
+OBJS                    = pro_SPINOR.o
+CC                      = gcc
+LD                      = gcc
+TRANS                   = trans
+CPPFLAGS                = -I${ATFSSYSTEM}/${ATFSATL}/include \
+                          -I${ATFSSYSTEM}/${ATFSSYS}/include \
+                          -I${ATFSSYSTEM}/${ATFSVTC}/include \
+                          -I${ATFSSYSTEM}/${ATFSTBUS}/include
+CFLAGS                  = -Wall -fpic
+ATFS_CFLAGS             = -O2
+LDFLAGS                 = -L${ATFSSYSTEM}/${ATFSDIAG}/lib              \
+                          -L${ATFSSYSTEM}/${ATFSATL}/lib               \
+                          -L${ATFSSYSTEM}/${ATFSSYS}/lib               \
+                          -L${ATFSSYSTEM}/${ATFSTBUS}/lib              \
+                          -L${ATFSSYSTEM}/${ATFSSYS}/${ATFSTMODEL}/lib \
+                          -L${ATFSSYSTEM}/${ATFSSYS}/${ATFSBMODEL}/lib \
+                          -L${ATFSSYSTEM}/${ATFSVTC}/${ATFSTMODEL}/lib \
+                          -L${ATFSSYSTEM}/${ATFSDIAG}/${ATFSTMODEL}/lib
+LDLIBS                  = -latfssock                                   \
+                          -latfsmcicl                                  \
+                          -latfsvtc                                    \
+                          -latfstb                                     \
+                          -latfsrc                                     \
+                          -latfssc                                     \
+                          -latfshn                                     \
+                          -lrt                                         \
+                          -ldl                                         \
+                          -lm
+TARGET                  = ${PRO} ${PAT}
+all:			${TARGET}
+clean:			
+			@${RM} *.o *.mpa *.exe
+%.exe:%.o
+			${LD} $< -o $@ ${ATFS_CFLAGS} ${LDFLAGS} ${LDLIBS}
+%.mpa:%.asc
+			${TRANS} $<
