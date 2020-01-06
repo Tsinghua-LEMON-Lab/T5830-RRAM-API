@@ -24,3 +24,13 @@ RRAM C Interfaces (RCI) for [T5830 Memory Test System](https://www.advantest.com
 * FCM: Fail Capture Memory
 * PPS: Programmable Device Power Supply
 * ADC: Analog Digital Converter
+
+### Image of Software
+
+* Main Program (\*.c, \*.h)
+    * C program.
+    * MCI (Macro Control Interface) library functions are needed to access tester hardware.
+* Socket File (\*.soc)
+    * The table of DUT and PIN number.
+* Pattern Program (\*.asc)
+    * Assembler program of ALPG.
