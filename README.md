@@ -32,6 +32,7 @@ typedef struct {
     Time_ns hold;
 } Pulse;
 ```
+![Single pulse](img/single-pulse.png)
 
 ### Terminal Configurations
 
@@ -60,13 +61,21 @@ typedef struct {
 } Terminal;
 ```
 
-![Single pulse](img/single-pulse.png)
+#### Device Terminal Specification
+
+```c
+typedef struct {
+    Terminal bl;
+    Terminal sl;
+    Terminal wl;
+} RRAM_Terminal_Config;
+```
 
 ### Array Operations
 
 #### Operate single cell with single pulse
 
-* `Current_nA Read(int x_addr, int y_addr, Pulse read_pulse)`
+* `Current_nA read(int x_addr, int y_addr, RRAM_Terminal_Config config)`
 
 
 ## T5830 Basics
