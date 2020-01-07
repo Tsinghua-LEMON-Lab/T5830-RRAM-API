@@ -33,6 +33,8 @@ typedef struct {
 } Pulse;
 ```
 
+![Single pulse](img/single-pulse.png)
+
 ### Array Operations
 
 * `int Read()`
