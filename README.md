@@ -33,11 +33,40 @@ typedef struct {
 } Pulse;
 ```
 
+### Terminal Configurations
+
+#### Terminal Mode Definition
+
+```c
+typedef enum {
+    GROUND,
+    DIRECT,
+    SINGLE_PULSE,
+    PULSE_TRAIN
+} Mode_t;
+```
+
+#### Single Terminal Definition
+
+```c
+typedef struct {
+    char * name;
+    Mode_t mode;
+    union {
+        Voltage_V level;
+        Pulse pulse;
+        PulseTrain pulse_train;
+    } signal;
+} Terminal;
+```
+
 ![Single pulse](img/single-pulse.png)
 
 ### Array Operations
 
-* `int Read()`
+#### Operate single cell with single pulse
+
+* `Current_nA Read(int x_addr, int y_addr, Pulse read_pulse)`
 
 
 ## T5830 Basics
