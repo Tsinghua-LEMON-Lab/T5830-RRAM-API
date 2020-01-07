@@ -91,7 +91,7 @@ typedef struct {
 
         // PULSE_TRAIN
         PulseTrain pulse_train;
-    } signal;
+    } data;
 } Terminal;
 ```
 
