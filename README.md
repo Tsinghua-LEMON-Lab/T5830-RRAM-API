@@ -34,6 +34,35 @@ typedef struct {
 ```
 ![Single pulse](img/single-pulse.png)
 
+#### Pulse Train Definition
+
+```c
+typedef enum {
+    REPEAT,
+    SWEEP,
+    MANUAL
+} PulseTrainMode;
+```
+
+```c
+typedef struct {
+    PulseTrainMode mode;
+    union {
+        // REPEAT
+        int count;
+        Pulse pulse;
+
+        // SWEEP
+        Pulse start;
+        Pulse end;
+        Voltage_V step;
+
+        // MANUAL
+        Pulse * pulses;
+    } data;
+} PulseTrain;
+```
+
 ### Terminal Configurations
 
 #### Terminal Mode Definition
@@ -44,7 +73,7 @@ typedef enum {
     DIRECT,
     SINGLE_PULSE,
     PULSE_TRAIN
-} Mode_t;
+} TerminalMode;
 ```
 
 #### Single Terminal Definition
@@ -52,10 +81,15 @@ typedef enum {
 ```c
 typedef struct {
     char * name;
-    Mode_t mode;
+    TerminalMode mode;
     union {
+        // GROUND, DIRECT
         Voltage_V level;
+
+        // SINGLE_PULSE
         Pulse pulse;
+
+        // PULSE_TRAIN
         PulseTrain pulse_train;
     } signal;
 } Terminal;
@@ -68,15 +102,18 @@ typedef struct {
     Terminal bl;
     Terminal sl;
     Terminal wl;
-} RRAM_Terminal_Config;
+} RRAMConfig;
 ```
 
 ### Array Operations
 
-#### Operate single cell with single pulse
+#### Operate single cell
 
-* `Current_nA read(int x_addr, int y_addr, RRAM_Terminal_Config config)`
+* `Current_nA operate(int x_addr, int y_addr, RRAMConfig config)`
 
+#### Operate array
+
+* `Current_nA * operate_all(RRAMConfig config)`
 
 ## T5830 Basics
 
