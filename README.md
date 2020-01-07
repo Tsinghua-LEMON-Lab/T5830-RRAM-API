@@ -1,6 +1,41 @@
-# T5830-RCI
+# T5830-RRAM-API
 
-RRAM C Interfaces (RCI) for [T5830 Memory Test System](https://www.advantest.com/products/ic-test-systems/t5830).
+RRAM testing API (C language) for [T5830 Memory Test System](https://www.advantest.com/products/ic-test-systems/t5830).
+
+
+## APIs
+
+![Version](https://img.shields.io/badge/-v0.1.0-informational)
+
+### Default Unit Specifications
+
+* Time: ns (1e-9)
+* Voltage: V
+* Current: nA (1e-9)
+
+```c
+typedef int Time_ns;
+typedef float Voltage_V;
+typedef int Current_nA;
+```
+
+### Pulse Configurations
+
+#### Single Pulse Definition
+
+```c
+typedef struct {
+    Voltage_V low;
+    Voltage_V high;
+    Time_ns width;
+    Time_ns delay;
+    Time_ns hold;
+} Pulse;
+```
+
+### Array Operations
+
+* `int Read()`
 
 
 ## T5830 Basics
